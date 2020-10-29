@@ -1,11 +1,11 @@
 import socket   
 import sys 
 import time
-from mongoconnection import mongoConnection, setHost, setDB
+from mongoconnection import mongoConnection, setHost, setDB, setDevicesList
 from fulltrack2 import readBaseFulltrack2
 from hytera import readBaseHytera
 
-HOST = "" #IP do mapa
+HOST = "" #IP do saffira
 PORT = 11001
 API = ""
 
@@ -14,6 +14,7 @@ HELP = ("\tpython3 file [option] [arguments]\n\nUse:\n" +
         " -h, --host\t define host IP\n" +
         " -d, --db\t define mongo-database name\n" +
         " -m, --dbhost\t define mongo host IP\n" +
+        " -l, --dvList\t Pick Vehicles from devices' list\n" +
 		"\n\tUse the database or config file to set the parameters:\n" +
 		"\t\t Hytera: Only config file\n" +
 		"\t\t Fulltrack2: Config file or mongo-database\b")
@@ -29,6 +30,8 @@ for i, argv in enumerate(sys.argv):
             DB = mongoConnection()
         if argv == '--dbhost' or argv == '-m':
             setHost(sys.argv[i+1])
+        if argv == '--devicesList' or argv == '-l':
+            setDevicesList()
         if argv == '--help':
             print(HELP)
             sys.exit(0)

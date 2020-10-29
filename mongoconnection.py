@@ -4,6 +4,7 @@ DB = None
 DBNAME = ""
 DBHOST = "127.0.0.1"
 DBConnection = False
+listOriginDevices = False # Default is registered 'Veiculos'
 
 def setHost(host):
     global DBHOST
@@ -12,6 +13,13 @@ def setHost(host):
 def setDB(name):
     global DBNAME
     DBNAME = name
+
+def setDevicesList():
+    global listOriginDevices
+    listOriginDevices = True
+
+def isListOriginDevices():
+    return listOriginDevices
 
 def setDBConnection(val=True):
     global DBConnection
@@ -31,7 +39,8 @@ def mongoConnection():
     except Exception as error:
         print("Database Connection error: " + str(error))
 
-def getVeiculos():
+def getFulltrack2Veiculos():
+    print("Picking Vehicles from 'recusos'")
     try:
         vehicle = DB['recursos'].find()
         radioIds = []
@@ -41,11 +50,12 @@ def getVeiculos():
     except Exception as error:
         print("mongoConnection, getVeiculos Error: " +  str(error))
 
-def getVeiculosFromRecusos():
+def getFulltrack2VeiculosFromDevices():
+    print("Picking Vehicles from 'devices'")
     try:
         recursos = DB['devices'].find()       
         for rec in recursos:
-            if rec.get("nome") == 'API FullTrack2':
+            if rec.get("api") == 'Fulltrack2':
                 return rec.get("radioList")
     except expression as identifier:
         print("mongoConnection, getVeiculosFromRecusos Error: " +  str(error))
@@ -54,7 +64,7 @@ def getFulltrack2Keys():
     try:
         recursos = DB['devices'].find()
         for rec in recursos:
-            if rec.get("nome") == 'API FullTrack2':
+            if rec.get("api") == 'Fulltrack2':
                 keys = {}
                 keys["apiKey"] = rec.get("login")
                 keys["secretKey"] = rec.get("password")
