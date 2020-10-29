@@ -49,9 +49,12 @@ def readBaseFulltrack2():
     for carro in r_json["data"]:
             cursor = {}
             try:
-                ras_vei_id = carro["ras_vei_id"].strip()
-                if ras_vei_id in lista:
-                    cursor["id"] = ras_vei_id						
+                if(not isListOriginDevices()):
+                    identifier = carro["ras_vei_id"].strip()
+                else:
+                    identifier = carro["ras_vei_veiculo"].strip()
+                if identifier in lista:
+                    cursor["id"] = carro["ras_vei_id"].strip()						
                     cursor["latitude"] = carro["ras_eve_latitude"]
                     cursor["longitude"] = carro["ras_eve_longitude"]
                     if carro["ras_eve_gps_status"] == "0":
