@@ -71,7 +71,7 @@ def readBaseFulltrack2():
                 continue
     return data
 
-def testFulltrack2():
+def testFulltrack2(saveInFile=False):
     setConfiguration()
     try:
         global headers
@@ -80,11 +80,12 @@ def testFulltrack2():
     except Exception as error:
             print("readBaseFulltrack2 Error: ", error)
             return -1
-    f = open("jsontest.py", "w")
-    f.write(str(r_json["data"]))
+    if saveInFile:
+        f = open("jsontest.py", "w")
+        f.write(str(r_json["data"]))
     print(r_json["data"])
 
-def getIdByVeiculo():
+def getIdByVeiculo(saveInFile=False):
     setConfiguration()
     try:
         global headers
@@ -98,6 +99,7 @@ def getIdByVeiculo():
         ras_vei_veiculo = carro["ras_vei_veiculo"].strip()
         if ras_vei_veiculo in ras_vei_veiculoList:
             data[ ras_vei_veiculo ] = carro["ras_vei_id"].strip()
-    f = open("jsontest.py", "w")
-    f.write(str(data))
+    if saveInFile:
+        f = open("jsontest.py", "w")
+        f.write(str(data))
     print(data)
