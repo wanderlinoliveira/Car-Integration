@@ -1,10 +1,10 @@
 import pymssql
 import datetime
-from config import hyteraHost, hyteraUser, hyteraPassword
+from config import hytera
 
 def readBaseHytera():
 	try:
-		connection = pymssql.connect(host=hyteraHost, user=hyteraUser, password=Hyterapassword) #ip servidor Hytera
+		connection = pymssql.connect(host=hytera["host"], user=hytera["user"], password=hytera["password"]) #ip servidor Hytera
 		cursor = connection.cursor()
 	except:
 		print("Connct", sys.exc_info()[1])

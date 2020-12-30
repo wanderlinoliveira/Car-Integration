@@ -2,10 +2,10 @@
 import requests
 import json
 from mongoconnection import getFulltrack2Veiculos, getFulltrack2Keys, getFulltrack2VeiculosFromDevices, getDBConnection, isListOriginDevices
-from config import fulltrack2Keys, fulltrack2List, fulltrack2url, ras_vei_veiculoList
+from config import fulltrack2
 
 configured = False
-url = fulltrack2url
+url = fulltrack2["url"]
 headers = {}
 lista = []
 
@@ -26,12 +26,12 @@ def setConfiguration():
             lista = getFulltrack2VeiculosFromDevices()
     else:
         print("Picking keys and list from config file")
-        keys = fulltrack2Keys
+        keys = fulltrack2["keys"]
         headers = {
             'apiKey': keys["apiKey"],
             'secretKey':  keys["secretKey"]
         }
-        lista = fulltrack2List
+        lista = fulltrack2["tracklist"]
 
 def readBaseFulltrack2():
     global configured
@@ -77,13 +77,15 @@ def testFulltrack2(saveInFile=False):
         global headers
         r = requests.get(url,headers=headers)
         r_json = r.json()
+        for carro in r_json["data"]:
+            print(carro["ras_vei_id"],carro["ras_vei_placa"])
     except Exception as error:
             print("readBaseFulltrack2 Error: ", error)
             return -1
     if saveInFile:
         f = open("jsontest.py", "w")
         f.write(str(r_json["data"]))
-    print(r_json["data"])
+    #print(r_json["data"])
 
 def getIdByVeiculo(saveInFile=False):
     setConfiguration()
@@ -97,7 +99,7 @@ def getIdByVeiculo(saveInFile=False):
     data = {}
     for carro in r_json["data"]:
         ras_vei_veiculo = carro["ras_vei_veiculo"].strip()
-        if ras_vei_veiculo in ras_vei_veiculoList:
+        if ras_vei_veiculo in fulltrack2["ras_vei_veiculoList"]:
             data[ ras_vei_veiculo ] = carro["ras_vei_id"].strip()
     if saveInFile:
         f = open("jsontest.py", "w")

@@ -1,14 +1,22 @@
 #FULLTRACK2-CONFIGURATION***************************************************
-fulltrack2url = "https://ws.fulltrack2.com/events/all"
-fulltrack2Keys = {
-    'apiKey': "", #saffiralogin
-    'secretKey': "" #saffirapass
+fulltrack2 = {
+    "url": "https://ws.fulltrack2.com/events/all",
+    "keys": {
+        'apiKey': "", #saffiralogin
+        'secretKey': "" #saffirapass
+    },
+    "tracklist": [],  #carslist
+    "ras_vei_veiculoList": [], #Just for tests
 }
-fulltrack2List = []  #carslist
-ras_vei_veiculoList = [] #Just for tests
-
 #HYTERA-CONFIGURATION*******************************************************
-hyteraHost= ""
-hyteraUser= ""
-hyteraPassword= ""
-
+hytera = {
+    "host": "",
+    "user": "",
+    "password": "",
+}
+#MULTIPORTAL
+multiPortal = {
+    "username": "ATONENGENHARIA",
+    "password": "aton1234",
+    "appid": 1103
+}

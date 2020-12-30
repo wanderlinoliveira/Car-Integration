@@ -4,6 +4,7 @@ import time
 from mongoconnection import mongoConnection, setHost, setDB, setDevicesList
 from fulltrack2 import readBaseFulltrack2
 from hytera import readBaseHytera
+from multiPortal import readBaseMultiPortal
 
 HOST = "" #IP do saffira
 PORT = 11001
@@ -57,6 +58,8 @@ def connectSaffira():
 				carros = readBaseFulltrack2()
 			elif API == 'hytera': 
 				carros = readBaseHytera()
+			elif API == 'multiportal': 
+				carros = readBaseMultiPortal()
 			else:
 				print("There's no support for this")
 				break
