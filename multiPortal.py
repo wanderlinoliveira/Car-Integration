@@ -1,7 +1,7 @@
 import requests
 import json
 from config import multiPortal
-
+from datetime import datetime
 token = None
 expiration = 0
 
@@ -61,6 +61,7 @@ def ultimaPosicao():
         r = requests.post(url, headers=headers)
         response = json.loads(r.text)['object']
         data = []
+        now = datetime.now()
         for vehicle in response:
             carro = {}
             carro["id"]= vehicle["id"]
@@ -78,6 +79,18 @@ def ultimaPosicao():
                         carro["latitude"]=  info["latitude"]
                         carro["longitude"]= info["longitude"]
                         carro["vel"]= info["velocidade"]
+                        date_time = datetime.fromtimestamp(int(info["dataProcessamento"]/1000))
+                        carro["dataProcessamento"] = date_time.strftime("%d/%m/%Y, %H:%M:%S")
+                        if int(now.timestamp() - int(info["dataProcessamento"]/1000)) > 300:
+                            carro["status"]= "offline"
+                        else:
+                            componentes = info["componentes"]
+                            for comp in componentes:
+                                if(comp["nome"] == "Ignicao"):
+                                    if(int(comp["valor"]) != 0):
+                                        carro["status"]= "online"
+                                    else:
+                                        carro["status"]= "red"
             data.append(carro)
         return data
     except Exception as error:
