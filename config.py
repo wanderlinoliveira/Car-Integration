@@ -16,7 +16,7 @@ hytera = {
 }
 #MULTIPORTAL
 multiPortal = {
-    "username": "ATONENGENHARIA",
-    "password": "aton1234",
-    "appid": 1103
+    "username": "",
+    "password": "",
+    "appid": 
 }
