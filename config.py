@@ -8,12 +8,14 @@ fulltrack2 = {
     "tracklist": [],  #carslist
     "ras_vei_veiculoList": [], #Just for tests
 }
+
 #HYTERA-CONFIGURATION*******************************************************
 hytera = {
     "host": "",
     "user": "",
     "password": "",
 }
+
 #MULTIPORTAL
 multiPortal = {
     "username": "",
